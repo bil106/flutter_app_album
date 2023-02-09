@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/home_page.dart';
 
+import 'dataloader.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -11,82 +13,104 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'AppBar',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        textTheme: const TextTheme(
-          caption: TextStyle(fontSize: 22.0, color: Colors.white),
-        ),
-        fontFamily: 'Georgia'
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class FavoritWidget extends StatefulWidget {
-  const FavoritWidget({super.key});
-
-  @override
-  _FavoritWidgetState createState() => _FavoritWidgetState();
-}
-
-class _FavoritWidgetState extends State<FavoritWidget> {
-  late bool _isFavorited = false;
-  int _favoritCount = 888999;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          child: IconButton(
-            icon: (_isFavorited
-                ? Icon(Icons.favorite)
-                : Icon(Icons.favorite_border)),
-            onPressed: _toggleFavorite,
-            color: Colors.red[500],
+          primarySwatch: Colors.deepPurple,
+          textTheme: const TextTheme(
+            bodySmall: TextStyle(fontSize: 22.0, color: Colors.white),
           ),
-        ),
-        SizedBox(
-            width: 40,
-            child: Container(
-              child: Text('$_favoritCount'),
-            ))
-      ],
+          fontFamily: 'Georgia'),
+      home: const MyHomePage(),
     );
-  }
-
-  void _toggleFavorite() {
-    setState(() {
-      if (_isFavorited) {
-        _isFavorited = false;
-        _favoritCount -= 1;
-      } else {
-        _isFavorited = true;
-        _favoritCount += 1;
-      }
-    });
   }
 }
 
-class PersonWidget extends StatelessWidget {
-  const PersonWidget({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  late List<Album>? albums = null;
+  late Exception? exception = null;
+
+  void loadData() async {
+    try {
+      var albumsLoad = await loadAlbums();
+      setState(() {
+        albums = albumsLoad;
+      });
+    } on Exception catch (ex) {
+      setState(() {
+        exception = ex;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget content;
+    final List<Album>? currentAlbums = albums;
+    if (currentAlbums != null) {
+      content = albumsList(context, currentAlbums);
+    } else if (exception != null) {
+      content = exceptionStub(context, exception!);
+    } else {
+      content = loader(context);
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Япония,Старшая школа'),
-      ),
-      body: Container(
-        child: _buldMainColumn(),
-      ),
+      body: Center(child: content),
     );
   }
+}
 
-  Widget _buldMainColumn() => ListView(
+Widget albumsList(BuildContext context, List<Album> albums) {
+  return Flexible(
+    child: ListView.builder(
+      itemCount: albums.length,
+      itemBuilder: (context, index) => Row(
         children: [
-          _buildTopImage(),
+          IconButton(onPressed: () => {}, icon: const Icon(Icons.photo_album)),
+         
+          Text('${albums[index].id}${' '}${albums[index].title}' ,style: const TextStyle(fontSize: 24) ,),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget loader(
+  BuildContext context,
+) {
+  return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+    Text(
+      'Loading data ...',
+      style: Theme.of(context).textTheme.headlineMedium,
+    ),
+  ]);
+}
+
+Widget exceptionStub(BuildContext context, Exception exception) {
+  return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+    Text(
+      'Ooops! Error is ${exception.toString()}',
+      style: Theme.of(context).textTheme.headlineMedium,
+    ),
+  ]);
+}
+ /* Widget _buldMainColumn(BuildContext context, List<Album> albums) => ListView(
+        children: [
+          _loadData(),
           Center(
             child: Container(
               padding: const EdgeInsets.only(
@@ -116,7 +140,7 @@ class PersonWidget extends StatelessWidget {
           )
         ],
       );
-  Widget _buildTopImage() => Container(
+  Widget _loadData() => Container(
         margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 1),
         child: Card(
           elevation: 5,
@@ -135,7 +159,7 @@ class PersonWidget extends StatelessWidget {
         subtitle: const Text('Japan'),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[FavoritWidget()],
+          children: const <Widget>[MyHomePage()],
         ),
       );
 
@@ -169,4 +193,4 @@ class PersonWidget extends StatelessWidget {
           fontSize: 18.0,
         ),
       );
-}
+*/
