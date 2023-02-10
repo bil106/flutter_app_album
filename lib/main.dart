@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/home_page.dart';
+import 'package:flutter_app/theme/colors.dart';
+
 
 import 'dataloader.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -12,16 +16,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'AppBar',
-      theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          textTheme: const TextTheme(
-            bodySmall: TextStyle(fontSize: 22.0, color: Colors.white),
-          ),
-          fontFamily: 'Georgia'),
-      home: const MyHomePage(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false, 
+      
+      home:  HomePage(),
     );
   }
 }
@@ -75,16 +73,23 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 Widget albumsList(BuildContext context, List<Album> albums) {
-  return Flexible(
-    child: ListView.builder(
-      itemCount: albums.length,
-      itemBuilder: (context, index) => Row(
-        children: [
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.photo_album)),
-         
-          Text('${albums[index].id}${' '}${albums[index].title}' ,style: const TextStyle(fontSize: 24) ,),
-        ],
-      ),
+  return ListView.builder(
+    itemCount: albums.length,
+    itemBuilder: (context, index) => Row(
+      children: [
+       const Padding(padding: EdgeInsets.all(12)),
+        Flexible(
+            child: IconButton(
+                onPressed: () => {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const HomePage() ,))
+                }, icon: const Icon(Icons.photo_album))),
+        Flexible(
+          child: Text(
+            '${albums[index].id}  ${albums[index].title}',
+            style: const TextStyle(fontSize: 16),
+          ),
+        )
+      ],
     ),
   );
 }
@@ -93,6 +98,7 @@ Widget loader(
   BuildContext context,
 ) {
   return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+    
     Text(
       'Loading data ...',
       style: Theme.of(context).textTheme.headlineMedium,
@@ -108,89 +114,89 @@ Widget exceptionStub(BuildContext context, Exception exception) {
     ),
   ]);
 }
- /* Widget _buldMainColumn(BuildContext context, List<Album> albums) => ListView(
-        children: [
-          _loadData(),
-          Center(
-            child: Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-                right: 10,
-              ),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(2),
-                    child: _buildRating(),
-                  ),
-                  Card(
-                    margin: const EdgeInsets.all(5),
-                    elevation: 5,
-                    child: Container(
-                        padding: const EdgeInsets.all(10),
-                        child: _buildActiom()),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(5),
-                    child: _buildDesc(),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      );
-  Widget _loadData() => Container(
-        margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 1),
-        child: Card(
-          elevation: 5,
-          child: Image.asset(
-            'assets/images/lake-5848868_960_720.jpg',
-            height: 450,
-            width: 700,
-            fit: BoxFit.none,
-          ),
-        ),
-      );
+//  /* Widget _buldMainColumn(BuildContext context, List<Album> albums) => ListView(
+//         children: [
+//           _loadData(),
+//           Center(
+//             child: Container(
+//               padding: const EdgeInsets.only(
+//                 left: 10,
+//                 right: 10,
+//               ),
+//               child: Column(
+//                 children: <Widget>[
+//                   Container(
+//                     padding: const EdgeInsets.all(2),
+//                     child: _buildRating(),
+//                   ),
+//                   Card(
+//                     margin: const EdgeInsets.all(5),
+//                     elevation: 5,
+//                     child: Container(
+//                         padding: const EdgeInsets.all(10),
+//                         child: _buildActiom()),
+//                   ),
+//                   Container(
+//                     margin: const EdgeInsets.all(5),
+//                     child: _buildDesc(),
+//                   )
+//                 ],
+//               ),
+//             ),
+//           )
+//         ],
+//       );
+//   Widget _loadData() => Container(
+//         margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 1),
+//         child: Card(
+//           elevation: 5,
+//           child: Image.asset(
+//             'assets/images/lake-5848868_960_720.jpg',
+//             height: 450,
+//             width: 700,
+//             fit: BoxFit.none,
+//           ),
+//         ),
+//       );
 
-  Widget _buildRating() => ListTile(
-        title: const Text('name',
-            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
-        subtitle: const Text('Japan'),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[MyHomePage()],
-        ),
-      );
+//   Widget _buildRating() => ListTile(
+//         title: const Text('name',
+//             style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0)),
+//         subtitle: const Text('Japan'),
+//         trailing: Row(
+//           mainAxisSize: MainAxisSize.min,
+//           children: const <Widget>[MyHomePage()],
+//         ),
+//       );
 
-  Widget _buildActiom() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          _buildButton('Desc1', Icons.star, Colors.black),
-          _buildButton('Desc2', Icons.radio_button_checked, Colors.green),
-          _buildButton('Desc3', Icons.school, Colors.red),
-        ],
-      );
+//   Widget _buildActiom() => Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: <Widget>[
+//           _buildButton('Desc1', Icons.star, Colors.black),
+//           _buildButton('Desc2', Icons.radio_button_checked, Colors.green),
+//           _buildButton('Desc3', Icons.school, Colors.red),
+//         ],
+//       );
 
-  Widget _buildButton(String label, IconData icon, Color color) => Column(
-        children: <Widget>[
-          Icon(
-            icon,
-            color: Colors.black,
-          ),
-          Container(
-            child: Text(
-              label,
-              style: TextStyle(fontWeight: FontWeight.w400, color: color),
-            ),
-          )
-        ],
-      );
-  Widget _buildDesc() => const Text(
-        'Текст описания',
-        softWrap: true,
-        style: TextStyle(
-          fontSize: 18.0,
-        ),
-      );
-*/
+//   Widget _buildButton(String label, IconData icon, Color color) => Column(
+//         children: <Widget>[
+//           Icon(
+//             icon,
+//             color: Colors.black,
+//           ),
+//           Container(
+//             child: Text(
+//               label,
+//               style: TextStyle(fontWeight: FontWeight.w400, color: color),
+//             ),
+//           )
+//         ],
+//       );
+//   Widget _buildDesc() => const Text(
+//         'Текст описания',
+//         softWrap: true,
+//         style: TextStyle(
+//           fontSize: 18.0,
+//         ),
+//       );
+// */

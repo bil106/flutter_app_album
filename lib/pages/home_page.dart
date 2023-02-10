@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/models/question.dart';
-import 'package:flutter_app/widgets/answer.dart';
-import 'package:flutter_app/widgets/progress_bar.dart';
-import 'package:flutter_app/widgets/result.dart';
-import 'package:flutter_app/widgets/scool.dart';
+import 'package:flutter_app/widgets/getAlbums.dart';
+
+import '../dataloader.dart';
+import '../widgets/exception.dart';
+import '../widgets/loader.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,69 +12,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final QuestionData data = QuestionData();
-  int _countResult = 0;
-  int _questionIndex = 0;
+  bool albumsLoad = false;
 
-  List<Icon> _icons = []; //Icons for progressBar
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
-  void _clearState() => setState(() {
-        // Metod obnulenija State
-        _questionIndex = 0;
-        _countResult = 0;
-        _icons = [];
+  void loadData() async {
+    try {
+      var albumsLoad = await loadAlbums();
+      setState(() {
+        albums = albumsLoad;
       });
-
-//Made function update state answer and progressBar
-  void _onChangeAnswer(bool isCorrect) => setState(() {
-        if (isCorrect) {
-          _icons.add(const Icon(
-            Icons.brightness_1,
-            color: Colors.greenAccent,
-          ));
-          _countResult++;
-        } else {
-          _icons.add(const Icon(
-            Icons.brightness_1,
-            color: Colors.grey,
-          ));
-          _questionIndex++;
-        }
+    } on Exception catch (ex) {
+      setState(() {
+        exception = ex;
       });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('New app')),
-        body: Container(
-          constraints: const BoxConstraints.expand(),
-          decoration: const BoxDecoration(
-              color: Color(0xff2a375a),
-              image: DecorationImage(
-                image: AssetImage('assets/images/lake-5848868_960_720.jpg'),
-                fit: BoxFit.cover,
-              )),
-          child: Column(
-            children: <Widget>[
+    Widget content;
+    final List<Album>? currentAlbums = albums;
+    if (currentAlbums != null) {
+      content = albumsList(context, currentAlbums);
+    } else if (exception != null) {
+      content = exceptionStub(context, exception!);
+    } else {
+      content = loader(context);
+    }
 
-              ProgressBar(
-                icons: _icons,
-                count: _questionIndex,
-                total: data.questions.length,
-              ),
-              
-              _questionIndex < data.questions.length
-                  ? Scool(
-                      index: _questionIndex,
-                      questionData: data,
-                      onChangeAnswer: _onChangeAnswer,
-                    )
-                  : Result(
-                      count: _countResult,
-                      total: data.questions.length,
-                      onClearState: _clearState,
-                    )
-            ],
-          ),
-        ));
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo.shade900,
+        title: const Text('Listing albums'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: content,
+      ),
+    );
+  }
+
+  Widget albumsList(BuildContext context, List<Album> albums) {
+    return ListView.builder(
+        itemCount: albums.length,
+        itemBuilder: (context, index) {
+          return getAlbums(index);
+        });
   }
 }
+
+
