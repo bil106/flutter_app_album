@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/home_page.dart';
-import 'package:flutter_app/theme/colors.dart';
 
 
-import 'dataloader.dart';
+
+// import 'dataloader.dart';
 
 
 
@@ -24,96 +24,96 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({super.key});
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<MyHomePage> {
-  late List<Album>? albums = null;
-  late Exception? exception = null;
+// class _MyHomePageState extends State<MyHomePage> {
+//   late List<Album>? albums = null;
+//   late Exception? exception = null;
 
-  void loadData() async {
-    try {
-      var albumsLoad = await loadAlbums();
-      setState(() {
-        albums = albumsLoad;
-      });
-    } on Exception catch (ex) {
-      setState(() {
-        exception = ex;
-      });
-    }
-  }
+//   void loadData() async {
+//     try {
+//       var albumsLoad = await loadAlbums();
+//       setState(() {
+//         albums = albumsLoad;
+//       });
+//     } on Exception catch (ex) {
+//       setState(() {
+//         exception = ex;
+//       });
+//     }
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     loadData();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget content;
-    final List<Album>? currentAlbums = albums;
-    if (currentAlbums != null) {
-      content = albumsList(context, currentAlbums);
-    } else if (exception != null) {
-      content = exceptionStub(context, exception!);
-    } else {
-      content = loader(context);
-    }
+//   @override
+//   Widget build(BuildContext context) {
+//     Widget content;
+//     final List<Album>? currentAlbums = albums;
+//     if (currentAlbums != null) {
+//       content = albumsList(context, currentAlbums);
+//     } else if (exception != null) {
+//       content = exceptionStub(context, exception!);
+//     } else {
+//       content = loader(context);
+//     }
 
-    return Scaffold(
-      body: Center(child: content),
-    );
-  }
-}
+//     return Scaffold(
+//       body: Center(child: content),
+//     );
+//   }
+// }
 
-Widget albumsList(BuildContext context, List<Album> albums) {
-  return ListView.builder(
-    itemCount: albums.length,
-    itemBuilder: (context, index) => Row(
-      children: [
-       const Padding(padding: EdgeInsets.all(12)),
-        Flexible(
-            child: IconButton(
-                onPressed: () => {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>const HomePage() ,))
-                }, icon: const Icon(Icons.photo_album))),
-        Flexible(
-          child: Text(
-            '${albums[index].id}  ${albums[index].title}',
-            style: const TextStyle(fontSize: 16),
-          ),
-        )
-      ],
-    ),
-  );
-}
+// Widget albumsList(BuildContext context, List<Album> albums) {
+//   return ListView.builder(
+//     itemCount: albums.length,
+//     itemBuilder: (context, index) => Row(
+//       children: [
+//        const Padding(padding: EdgeInsets.all(12)),
+//         Flexible(
+//             child: IconButton(
+//                 onPressed: () => {
+//                   Navigator.push(context, MaterialPageRoute(builder: (context) =>const HomePage() ,))
+//                 }, icon: const Icon(Icons.photo_album))),
+//         Flexible(
+//           child: Text(
+//             '${albums[index].id}  ${albums[index].title}',
+//             style: const TextStyle(fontSize: 16),
+//           ),
+//         )
+//       ],
+//     ),
+//   );
+// }
 
-Widget loader(
-  BuildContext context,
-) {
-  return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+// Widget loader(
+//   BuildContext context,
+// ) {
+//   return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
     
-    Text(
-      'Loading data ...',
-      style: Theme.of(context).textTheme.headlineMedium,
-    ),
-  ]);
-}
+//     Text(
+//       'Loading data ...',
+//       style: Theme.of(context).textTheme.headlineMedium,
+//     ),
+//   ]);
+// }
 
-Widget exceptionStub(BuildContext context, Exception exception) {
-  return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-    Text(
-      'Ooops! Error is ${exception.toString()}',
-      style: Theme.of(context).textTheme.headlineMedium,
-    ),
-  ]);
-}
+// Widget exceptionStub(BuildContext context, Exception exception) {
+//   return Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+//     Text(
+//       'Ooops! Error is ${exception.toString()}',
+//       style: Theme.of(context).textTheme.headlineMedium,
+//     ),
+//   ]);
+// }
 //  /* Widget _buldMainColumn(BuildContext context, List<Album> albums) => ListView(
 //         children: [
 //           _loadData(),

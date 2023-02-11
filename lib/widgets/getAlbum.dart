@@ -1,12 +1,30 @@
- import 'package:flutter/material.dart';
+
+
+
+import 'package:flutter/material.dart';
 import 'package:flutter_app/dataloader.dart';
+import 'package:flutter_app/pages/photo_page.dart';
+import 'package:flutter_app/photoLoader.dart';
+
 import 'package:flutter_app/theme/colors.dart';
+import 'package:flutter_app/widgets/getPhoto.dart';
+
+
+
+
+
  late List<Album>? albums = null;
   late Exception? exception = null;
-Widget getAlbums(index) {
-    final albumId = '${albums![index].albumId}  ${albums![index].title}';
-    final thumbnailUrl=albums![index].thumbnailUrl;
-    final albumImage = albums![index].url;
+
+int? id;
+late Photo? photo=Photo();
+Photo get photo => "Photo$id";
+
+Widget getAlbums(BuildContext context, index) {
+  
+    final albumId = '${albums![index].userId}  ${albums![index].title}';
+    // final thumbnailUrl=photo!.thumbnailUrl;
+     final albumImage =  photo!.url;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -21,7 +39,7 @@ Widget getAlbums(index) {
                 image:  DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                          albumImage))
+                      albumImage.toString()    ))
               ),
             ),
           const  SizedBox(width: 20,),
@@ -38,12 +56,16 @@ Widget getAlbums(index) {
                   ),
                 const  SizedBox(height: 10,),
                   Text(
-                    thumbnailUrl,
+                    'thumbnailUrl',
                     style:const TextStyle(fontSize: 10),
                   ),
            ],),
          )
           ]),
+          onTap:() {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PhotPage( id: albums![index].id),));
+          }, 
+          
         ),
       ),
     );

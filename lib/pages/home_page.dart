@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/getAlbums.dart';
+import 'package:flutter_app/widgets/getAlbum.dart';
 
 import '../dataloader.dart';
 import '../widgets/exception.dart';
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
         itemCount: albums.length,
         itemBuilder: (context, index) {
-          return getAlbums(index);
+          return getAlbums(context,index);
         });
   }
 }
