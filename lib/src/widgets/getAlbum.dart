@@ -2,12 +2,12 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/dataloader.dart';
-import 'package:flutter_app/pages/photo_page.dart';
-import 'package:flutter_app/photoLoader.dart';
+import 'package:flutter_app/src/dataloader.dart';
+import 'package:flutter_app/src/pages/photo_page.dart';
+import 'package:flutter_app/src/photoLoader.dart';
 
-import 'package:flutter_app/theme/colors.dart';
-import 'package:flutter_app/widgets/getPhoto.dart';
+import 'package:flutter_app/src/theme/colors.dart';
+import 'package:flutter_app/src/widgets/getPhoto.dart';
 
 
 
@@ -17,14 +17,14 @@ import 'package:flutter_app/widgets/getPhoto.dart';
   late Exception? exception = null;
 
 int? id;
-late Photo? photo=Photo();
-Photo get photo => "Photo$id";
+//late Photo? photo=Photo();
+
 
 Widget getAlbums(BuildContext context, index) {
   
     final albumId = '${albums![index].userId}  ${albums![index].title}';
     // final thumbnailUrl=photo!.thumbnailUrl;
-     final albumImage =  photo!.url;
+    // final albumImage =  photo!.url;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -36,10 +36,12 @@ Widget getAlbums(BuildContext context, index) {
               decoration: BoxDecoration(
                 color: primary,
                 borderRadius: BorderRadius.circular(6),
-                image:  DecorationImage(
+                image:const  DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      albumImage.toString()    ))
+                     'https://img.freepik.com/free-vector/summer-holidays-frame_1284-5106.jpg?w=826&t=st=1676121736~exp=1676122336~hmac=56f90ffd200f64d5925d53f550fe987f8e6e839f945b187c1e4c23e21539d976'   
+                      
+                       ))
               ),
             ),
           const  SizedBox(width: 20,),
@@ -55,10 +57,10 @@ Widget getAlbums(BuildContext context, index) {
                     style:const TextStyle(fontSize: 16),
                   ),
                 const  SizedBox(height: 10,),
-                  Text(
-                    'thumbnailUrl',
-                    style:const TextStyle(fontSize: 10),
-                  ),
+                  // Text(
+                  //   'thumbnailUrl',
+                  //   style:const TextStyle(fontSize: 10),
+                  // ),
            ],),
          )
           ]),

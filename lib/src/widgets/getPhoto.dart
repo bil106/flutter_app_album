@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/dataloader.dart';
-import 'package:flutter_app/photoLoader.dart';
+
+import 'package:flutter_app/src/photoLoader.dart';
 
 
-import 'package:flutter_app/theme/colors.dart';
+import 'package:flutter_app/src/theme/colors.dart';
 
 late List<Photo>? photos=null ;
 late Exception? exception = null;
 
 
-Widget getPhotos(index) {
+Widget getPhotos(BuildContext context, index) {
   
   
   
@@ -30,7 +30,9 @@ Widget getPhotos(index) {
                 color: primary,
                 borderRadius: BorderRadius.circular(6),
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(albumImage))),
+                    fit: BoxFit.cover, image: NetworkImage(
+                      albumImage.toString()
+                      ))),
           ),
           const SizedBox(
             width: 20,
@@ -47,7 +49,7 @@ Widget getPhotos(index) {
                   height: 10,
                 ),
                 Text(
-                  thumbnailUrl,
+                  thumbnailUrl.toString(),
                   style: const TextStyle(fontSize: 10),
                 ),
               ],

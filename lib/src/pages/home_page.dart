@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/widgets/getAlbum.dart';
+import 'package:flutter_app/src/widgets/getAlbum.dart';
 
 import '../dataloader.dart';
 import '../widgets/exception.dart';
