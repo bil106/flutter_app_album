@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/theme/colors.dart';
 
+
 Widget loader(
   BuildContext context,
 ) {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/dataloader.dart';
-import 'package:flutter_app/src/pages/photo_page.dart';
-
+import 'package:flutter_app/src/presentation/pages/photo_page.dart';
 import 'package:flutter_app/src/theme/colors.dart';
+
+
 
 List<Album>? albums;
 Exception? exception;

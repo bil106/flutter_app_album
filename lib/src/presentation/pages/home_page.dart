@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/pages/photo_page.dart';
+import 'package:flutter_app/src/presentation/pages/photo_page.dart';
 import 'package:flutter_app/src/theme/colors.dart';
+
 import 'package:flutter_app/src/widgets/get_album.dart';
 
-import '../dataloader.dart';
-import '../widgets/exception.dart';
-import '../common/http/loader.dart';
+import '../../dataloader.dart';
+import '../../widgets/exception.dart';
+import '../../common/http/loader.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
