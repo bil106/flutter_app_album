@@ -3,7 +3,7 @@ import 'package:flutter_app/src/common/http/photo_loader.dart';
 
 class PhotoPage extends StatefulWidget {
   const PhotoPage({super.key, required this.id});
-
+  static String routeName = '/photo_page';
   final int id;
   @override
   _PhotoPageState createState() => _PhotoPageState(id: id);

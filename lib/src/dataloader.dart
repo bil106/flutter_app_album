@@ -20,6 +20,15 @@ class Album {
       title: json['title'],
     );
   }
+  final List<int> _albumItems = [];
+  List<int> get items => _albumItems;
+  void add(int albumId) {
+    _albumItems.add(albumId);
+  }
+
+  void remove(int albumId) {
+    _albumItems.remove(albumId);
+  }
 }
 
 Future<List<Album>> loadAlbums() async {

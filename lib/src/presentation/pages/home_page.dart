@@ -10,6 +10,8 @@ import '../../common/http/loader.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+  static String routeName = '/home_page';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -90,7 +92,9 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: ListTile(
-                title: Row(children: <Widget>[
+                title: Row(
+                  
+                  children: <Widget>[
                   Container(
                     width: 60,
                     height: 60,
@@ -107,9 +111,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Flexible(
                     child: Column(
+                      
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
+                       
                           album,
                           style: const TextStyle(fontSize: 20),
                         ),
@@ -132,4 +138,9 @@ class _HomePageState extends State<HomePage> {
           );
         });
   }
+}
+class HomePageRouteArguments {
+  HomePageRouteArguments();
+
+
 }
