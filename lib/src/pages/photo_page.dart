@@ -6,16 +6,16 @@ import 'package:flutter_app/src/widgets/getPhoto.dart';
 
 
 
-class PhotPage extends StatefulWidget {
-  const PhotPage({required this.id}) : super();
+class PhotoPage extends StatefulWidget {
+  const PhotoPage({required this.id}) : super();
 
   final int id;
   @override
-  _PhotPageState createState() => _PhotPageState(id: id);
+  _PhotoPageState createState() => _PhotoPageState(id: id);
 }
 
-class _PhotPageState extends State<PhotPage> {
-  _PhotPageState({required this.id}) : super();
+class _PhotoPageState extends State<PhotoPage> {
+  _PhotoPageState({required this.id}) : super();
 
   int id;
 

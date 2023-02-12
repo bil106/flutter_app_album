@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/photoLoader.dart';
 
-
 import 'package:flutter_app/src/theme/colors.dart';
 
-late List<Photo>? photos=null ;
-late Exception? exception = null;
-
+List<Photo>? photos;
+Exception? exception;
 
 Widget getPhotos(BuildContext context, index) {
-  
-  
-  
   final albumId = '${photos![index].albumId}  ${photos![index].title}';
   final thumbnailUrl = photos![index].thumbnailUrl;
   final albumImage = photos![index].url;
-  
-  
+
   return Card(
     child: Padding(
       padding: const EdgeInsets.all(10.0),
@@ -28,11 +22,10 @@ Widget getPhotos(BuildContext context, index) {
             height: 60,
             decoration: BoxDecoration(
                 color: primary,
-                borderRadius: BorderRadius.circular(6),
+                borderRadius: BorderRadius.circular(16),
                 image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(
-                      albumImage.toString()
-                      ))),
+                    fit: BoxFit.cover,
+                    image: NetworkImage(albumImage.toString()))),
           ),
           const SizedBox(
             width: 20,

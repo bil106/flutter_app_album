@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 @JsonSerializable()
 class Photo {
-  late final int? albumId;
+  late final int albumId;
   late final  int? id;
   late final String? title;
   late final String? url;
