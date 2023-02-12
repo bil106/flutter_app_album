@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/src/photoLoader.dart';
+import 'package:flutter_app/src/common/http/photo_loader.dart';
 
 import 'package:flutter_app/src/theme/colors.dart';
 
 List<Photo>? photos;
 Exception? exception;
-
+Photo? photo;
 Widget getPhotos(BuildContext context, index) {
   final albumId = '${photos![index].albumId}  ${photos![index].title}';
   final thumbnailUrl = photos![index].thumbnailUrl;

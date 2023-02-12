@@ -1,13 +1,11 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/pages/photo_page.dart';
 import 'package:flutter_app/src/theme/colors.dart';
-import 'package:flutter_app/src/widgets/getAlbum.dart';
+import 'package:flutter_app/src/widgets/get_album.dart';
 
 import '../dataloader.dart';
 import '../widgets/exception.dart';
-import '../widgets/loader.dart';
+import '../common/http/loader.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +17,6 @@ class _HomePageState extends State<HomePage> {
   bool albumsLoad = false;
   bool isDescending = false;
   late List<Album> albums = [];
- 
 
   @override
   void initState() {
@@ -69,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           ),
           label: Text(
             isDescending ? 'Descending' : 'Ascending',
-            style:const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16),
           ),
           onPressed: () => setState(() => isDescending = !isDescending),
         ),
@@ -82,9 +79,11 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
         itemCount: albums.length,
         itemBuilder: (context, index) {
-          final sortedAlbums =albums..sort((album1,album2) => isDescending ? album2.title.compareTo(album1.title) : album1.title.compareTo(album2.title));
+          final sortedAlbums = albums
+            ..sort((album1, album2) => isDescending
+                ? album2.title.compareTo(album1.title)
+                : album1.title.compareTo(album2.title));
           final album = sortedAlbums[index].title;
-        
 
           return Card(
             child: Padding(
@@ -96,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     height: 60,
                     decoration: BoxDecoration(
                         color: primary,
-                        borderRadius: BorderRadius.circular(60/2),
+                        borderRadius: BorderRadius.circular(60 / 2),
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(
@@ -116,7 +115,6 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           height: 10,
                         ),
-                      
                       ],
                     ),
                   )
@@ -131,10 +129,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           );
-          
         });
   }
 }
-
-
-

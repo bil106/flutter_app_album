@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/photoLoader.dart';
-import 'package:flutter_app/src/widgets/getPhoto.dart';
-
-
-
-
+import 'package:flutter_app/src/common/http/photo_loader.dart';
 
 class PhotoPage extends StatefulWidget {
-  const PhotoPage({required this.id}) : super();
+  const PhotoPage({super.key, required this.id});
 
   final int id;
   @override
@@ -28,16 +23,16 @@ class _PhotoPageState extends State<PhotoPage> {
   }
 
   void loadData() async {
-    var photosLoad = await loadPhotosList();
+    var photosLoad = await loadPhotos(id);
     setState(() {
-      photos = photosLoad;
+      photo = photosLoad;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     Widget widget;
-    final List<Photo>? currentPhotos = photos;
+    final Photo? currentPhotos = photo;
     if (currentPhotos == null) {
       widget = const Center(
         child: Text('Please, wait ...'),
@@ -54,24 +49,53 @@ class _PhotoPageState extends State<PhotoPage> {
       body: widget,
     );
   }
-   Widget photosList(BuildContext context, List<Photo> photos) {
+
+  Widget photosList(BuildContext context, Photo photos) {
     return ListView.builder(
-        itemCount: photos.length,
+        itemCount: photos.albumId,
         itemBuilder: (context, index) {
-          return getPhotos(context,index);
+          final albumId = '${photos.albumId}  ${photos.title}';
+          final thumbnailUrl = photos.thumbnailUrl;
+          final albumImage = photos.url;
+
+          return SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Image.network(
+                  albumImage.toString(),
+                  width: double.infinity,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Text(
+                            albumId,
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                            width: 5,
+                          ),
+                          Text(
+                            thumbnailUrl.toString(),
+                            style: const TextStyle(fontSize: 12),
+                            textAlign: TextAlign.center,
+                          ),
+                        ]),
+                  ),
+                ),
+              ],
+            ),
+          );
         });
   }
 }
-// SafeArea(
-//           child: Column(
-//         children: [
-//           GestureDetector(
-//             child: Image.network(
-//               photo.url,
-//               width: double.infinity,
-//             ),
-//             onTap: () {},
-//           ),
-//           Text(photo.title),
-//         ],
-//       ));
