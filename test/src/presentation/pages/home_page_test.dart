@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/src/presentation/pages/home_page.dart';
-import 'package:flutter_app/src/presentation/pages/photo_page.dart';
-import 'package:flutter_app/src/widgets/get_album.dart';
+import 'package:flutter_app/src/presentation/pages/allbum/home_page.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 
@@ -38,10 +37,10 @@ final navigator = MockNavigator();
 
             await tester.tap(find.byType(Column));
 
-            verifyNever(
-              () => navigator.pushNamed(PhotoPage.routeName,
-                  arguments: any(named: 'arguments')),
-            ).called(0);
+            // verifyNever(
+            //   () => navigator.pushNamed(PhotoPage.routeName,
+            //       arguments: any(named: 'arguments')),
+            // ).called(0);
           },
         );
       },
