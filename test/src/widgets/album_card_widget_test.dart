@@ -16,7 +16,7 @@ void main() {
   const title ='';
   const url ='';
   const thumbnailUrl ='';
-  final model = albumData;
+  final model = AlbumData(albumId: albumId,id: id,title: title,url: url,thumbnailUrl: thumbnailUrl );
    
    setUp(()async{});
    
@@ -36,11 +36,10 @@ void main() {
           onTap: () {},
           ),
       );
-      await tester.pump();
-      await tester.pumpAndSettle();
-      //expect(find.text(model.title), findsOneWidget);
-      expect(find.byType(Card), findsOneWidget);
+     await tester.pump();
+     await tester.pumpAndSettle();
+    expect(find.byType(ListTile), findsOneWidget);
+    });
       
     });
- });
-}
+ }
