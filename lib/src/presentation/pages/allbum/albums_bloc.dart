@@ -7,6 +7,7 @@ import 'package:flutter_app/src/domain/models/album.dart';
 
 part 'albums_event.dart';
 part 'albums_state.dart';
+
 class AlbumsBloc extends Bloc<AlbumsEvent, AlbumsState> {
   final AlbumsRepository _repo;
 
