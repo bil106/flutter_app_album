@@ -5,11 +5,9 @@ import 'package:flutter_app/src/presentation/pages/photo/photo_page.dart';
 import 'package:flutter_app/src/widgets/album_card_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
-import '../../test_widget.dart';
+import '../../widget_tester_ext.dart';
 
 
 void main() {

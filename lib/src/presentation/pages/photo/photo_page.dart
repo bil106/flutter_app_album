@@ -77,7 +77,7 @@ class _PhotoPageState extends State<PhotoPage> {
 Widget _photoCard(BuildContext context, AlbumData album) {
     return PhotoCardWidget(
       model: album,
-      onTap: () {},
+      onTap: () { },
     );
   }
  

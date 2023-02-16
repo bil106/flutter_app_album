@@ -31,7 +31,7 @@ void main() {
 
 group('PhotoCardWidget if url incorrect', () {
   final modelUrlError = AlbumData(
-        albumId: null,
+        albumId: 0,
         id: 0,
         title: '',
         url: null,

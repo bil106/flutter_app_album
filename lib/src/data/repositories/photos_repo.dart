@@ -6,7 +6,7 @@ class PhotoRepository {
   PhotoRepository(this.client);
 
   Future<List<AlbumData>> getPhotos(int albumId) async {
-    List<AlbumData> response = await getPhotos(albumId);
+    List<AlbumData> response = await client.getPhotos(albumId);
     return response;
   }
 }

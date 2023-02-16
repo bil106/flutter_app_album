@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/widgets/heading/heading.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../test_widget.dart';
+import '../../../widget_tester_ext.dart';
 
 void main() {
  group('Heading', () {
