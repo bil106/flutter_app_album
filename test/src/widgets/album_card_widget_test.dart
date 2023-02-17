@@ -9,34 +9,35 @@ import 'package:mocktail_image_network/mocktail_image_network.dart';
 
 import '../../widget_tester_ext.dart';
 
-
 void main() {
- group('AlbumCardWidget', () {
- 
-  
-  const albumId =0;
-  const id =0;
-  const title ='';
-  const url ='';
-  const thumbnailUrl ='';
-  final model = AlbumData(albumId: albumId,id: id,title: title,url: url,thumbnailUrl: thumbnailUrl );
-   
-    
-  
-  Future loadWidget(
+  group('AlbumCardWidget', () {
+    const albumId = 0;
+    const id = 0;
+    const title = '';
+    const url = '';
+    const thumbnailUrl = '';
+    final model = AlbumData(
+        albumId: albumId,
+        id: id,
+        title: title,
+        url: url,
+        thumbnailUrl: thumbnailUrl);
+
+    Future loadWidget(
       WidgetTester tester,
       AlbumCardWidget widget,
     ) async {
       await tester.loadWidget(
-        widget:  AlbumCardWidget(model: model,onTap: () {
-          
-        },),
+        widget: AlbumCardWidget(
+          model: model,
+          onTap: () {},
+        ),
       );
     }
+
     group('AlbumCardWidget', () {
-       testWidgets('1 test show image and title ', (tester) async {
+      testWidgets('1 test show image and title ', (tester) async {
         await mockNetworkImages(() async {
-        
           await loadWidget(tester, AlbumCardWidget(model: model, onTap: () {}));
 
           expect(find.byType(ListTile), findsOneWidget);
@@ -46,17 +47,16 @@ void main() {
         });
       });
     });
-    
-        group('AlbumCardWidget tap', () {
-          final navigator = MockNavigator();
+
+    group('AlbumCardWidget tap', () {
+      final navigator = MockNavigator();
       testWidgets('2 test navigate ', (tester) async {
         await mockNetworkImages(() async {
-         
           when(() => navigator.pushNamed(PhotoPage.routeName,
               arguments: any(named: 'arguments'))).thenAnswer((_) async => {});
           await loadWidget(tester, AlbumCardWidget(model: model, onTap: () {}));
 
-          expect(find.byType(ListTile), findsOneWidget);        
+          expect(find.byType(ListTile), findsOneWidget);
           expect(find.text(model.title), findsOneWidget);
 
           await tester.tap(find.text(model.title));
@@ -65,13 +65,11 @@ void main() {
             () => navigator.pushNamed(PhotoPage.routeName,
                 arguments: any(named: 'arguments')),
           ).called(0);
-         
         });
       });
     });
-    
+
     group('AlbumCardWidget error', () {
-     
       final model = AlbumData(
           albumId: albumId,
           id: id,
@@ -80,7 +78,6 @@ void main() {
           thumbnailUrl: thumbnailUrl);
       testWidgets('2 test if error url ', (tester) async {
         await mockNetworkImages(() async {
-         
           await loadWidget(tester, AlbumCardWidget(model: model, onTap: () {}));
 
           expect(find.byType(ListTile), findsOneWidget);
@@ -88,11 +85,8 @@ void main() {
 
           await tester.tap(find.text(model.title));
           expect(find.byType(SizedBox), findsOneWidget);
-          
         });
       });
     });
-    });
-   }
- 
- 
+  });
+}

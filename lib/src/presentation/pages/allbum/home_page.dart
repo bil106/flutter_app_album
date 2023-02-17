@@ -66,13 +66,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _scaffold(Widget body) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kcPrimaryColor,
-          title: const   Text('Listing albums'),
-          centerTitle: true,
-        ),
-        body: body,
-        );
+      appBar: AppBar(
+        backgroundColor: kcPrimaryColor,
+        title: const Text('Listing albums'),
+        centerTitle: true,
+      ),
+      body: body,
+    );
   }
 
   _albumWidget(BuildContext context) {
@@ -84,27 +84,36 @@ class _HomePageState extends State<HomePage> {
           if (albums == null || albums.isEmpty) {
             return _buildEmptyWidget(context);
           }
+
           return RefreshIndicator(
             child: Column(children: [
-              TextButton.icon( icon: const RotatedBox(
-              quarterTurns: 1,
-              child: Icon(
-                Icons.compare_arrows,
-                size: 28,
-              ),
-            ), label: Text(
-              isDescending ? 'Descending' : 'Ascending',
-              style: const TextStyle(fontSize: 16),
-            ),
-                onPressed: () => setState(() => isDescending = !isDescending),
+              TextButton.icon(
+                icon: const RotatedBox(
+                  quarterTurns: 1,
+                  child: Icon(
+                    Icons.compare_arrows,
+                    size: 28,
+                  ),
+                ),
+                label: Text(
+                  isDescending ? 'Descending' : 'Ascending',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                onPressed: () => setState(
+                  () => isDescending = !isDescending,
+                ),
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: albums.length,
-                  itemBuilder: (context, index) =>
-                  
-          _albumCard(context, albums[index]),
-          ),
+                    itemCount: albums.length,
+                    itemBuilder: (context, index) {
+                      final sortedAlbums = albums
+                        ..sort((album1, album2) => isDescending
+                            ? album2.title.compareTo(album1.title)
+                            : album1.title.compareTo(album2.title));
+                      final album = sortedAlbums[index].title;
+                      return _albumCard(context, albums[index]);
+                    }),
               ),
             ]),
             onRefresh: () async {
@@ -135,26 +144,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   _albumCard(BuildContext context, AlbumData album) {
-     return AlbumCardWidget(
+    return AlbumCardWidget(
         model: album,
         onTap: () {
           _navigateToAlbumInfo(context, album.id);
         });
   }
-  
+
   void _navigateToAlbumInfo(BuildContext context, int albumId) {
-    Navigator.pushNamed(context, PhotoPage.routeName,arguments: PhotoPageRouteArguments(albumId: albumId),);
+    Navigator.pushNamed(
+      context,
+      PhotoPage.routeName,
+      arguments: PhotoPageRouteArguments(albumId: albumId),
+    );
   }
 
-   _albumsSort(BuildContext context, List<AlbumData> albums) {
-    return ListView.builder(
-        itemCount: albums.length,
-        itemBuilder: (context, index) {
-          final sortedAlbums = albums
-            ..sort((album1, album2) => isDescending
-                ? album2.title.compareTo(album1.title)
-                : album1.title.compareTo(album2.title));
-          final album = sortedAlbums[index].title;
-        });
-  }
+ 
 }
