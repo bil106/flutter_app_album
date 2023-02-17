@@ -99,7 +99,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
   debugPrint('args ${settings.arguments}');
 
 String ronkStr = "ronk";
-    WidgetBuilder ronk = (context) => const SplashPage();
+    ronk(context) => const SplashPage();
 
    var routes = <String, WidgetBuilder>{
      ronkStr: ronk,

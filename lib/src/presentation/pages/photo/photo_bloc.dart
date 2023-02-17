@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/data/repositories/photos_repo.dart';
 import 'package:flutter_app/src/domain/models/album.dart';
-import 'package:meta/meta.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'photo_event.dart';

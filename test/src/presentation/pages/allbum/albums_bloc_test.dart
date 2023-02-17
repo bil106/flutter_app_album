@@ -3,7 +3,6 @@ import 'package:flutter_app/src/common/exception/exception.dart';
 import 'package:flutter_app/src/data/repositories/albums_repo.dart';
 import 'package:flutter_app/src/domain/models/album.dart';
 import 'package:flutter_app/src/presentation/pages/allbum/albums_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockingjay/mockingjay.dart';
 

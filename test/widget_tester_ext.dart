@@ -39,7 +39,7 @@ Future loadPage({
             child: MaterialApp(
               locale: context.locale,
               useInheritedMediaQuery: true,
-              home: ProviderScope(
+              home: providerScope(
                 overrides: [
                   
                 ],
@@ -54,5 +54,5 @@ Future loadPage({
 
 }
 
-ProviderScope({required List overrides, required Widget child}) {
+providerScope({required List overrides, required Widget child}) {
 }

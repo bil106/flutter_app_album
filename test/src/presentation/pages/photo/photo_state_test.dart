@@ -25,14 +25,14 @@ void main() {
     test(
         '3[PhotoState-PhotoLoading]state loading when photo must been added',
         () {
-      final stateA = PhotoState;
-      final stateB = PhotoLoading();
-      final stateC = PhotoLoadFailed('error');
+      
+      final stateA = PhotoLoading();
+      final stateB = PhotoLoadFailed('error');
 
+      expect(stateA, isA<PhotoState>());
       expect(stateB, isA<PhotoState>());
-      expect(stateC, isA<PhotoState>());
-      expect(stateB, isA<PhotoLoading>());
-      expect(stateB, isNot(stateC));
+      expect(stateA, isA<PhotoLoading>());
+      expect(stateA, isNot(stateB));
     });
   });
 }
