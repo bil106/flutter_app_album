@@ -28,7 +28,7 @@ void main() {
   late AlbumsRepository albumsRepository;
    late NavigatorObserver mockObserver ;
   group('HomePage', () {
-     final albums = [AlbumData(albumId: 0, id: 0, title: 'title', url: 'url', thumbnailUrl: 'thumbnailUrl')];
+     final albums = [AlbumData(albumId: 0, id: 0, title: 'title1', url: 'url', thumbnailUrl: 'thumbnailUrl')];
     setUp(()async {
        SharedPreferences.setMockInitialValues({});
       await EasyLocalization.ensureInitialized();
